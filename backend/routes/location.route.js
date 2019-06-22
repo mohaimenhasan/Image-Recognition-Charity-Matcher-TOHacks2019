@@ -4,5 +4,5 @@ var router = express.Router();
 const locationController = require('../controller/location.controller');
 
 router.get('/test', locationController.test);
-
+router.get('/something', locationController.something);
 module.exports = router;
