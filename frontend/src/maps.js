@@ -3,7 +3,6 @@ import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 
 class Maps extends Component{
-
     render() {
         return (
             <Map

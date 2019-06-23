@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
-import './App.css';
-import Maps from './maps';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Homescreen from './homescreen';
+
 
 class App extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       currentScreen: []
     }
   }
+
   componentWillMount() {
-    let mapsPage = [];
-    mapsPage.push(<Maps appContext={this}/>)
+    let homePage = [];
+    homePage.push(<Homescreen appContext={this} />)
     this.setState({
-      currentScreen: mapsPage
+        currentScreen: homePage
     })
   }
-
   render() {
     return (
-      <div className="App">
+      <div>
+        <AppBar position="static" style={{
+          alignItems: 'center',
+          position: 'center',
+
+        }}>
+          <Toolbar>
+            <Typography variant="h6">
+              (D)Clutter and (D)onate
+            </Typography>
+          </Toolbar>
+        </AppBar>
         {this.state.currentScreen}
       </div>
     );
