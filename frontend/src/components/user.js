@@ -7,6 +7,7 @@ class User extends Component {
         this.state = {
             photo: {},
             file: ''
+            photo: {}
         };
 
         this.loadFile = this.loadFile.bind(this);
@@ -53,6 +54,15 @@ class User extends Component {
             });
         };
 
+        // var image = document.getElementById('output');
+        // image.src = URL.createObjectURL(event.target.files[0]);
+        //handleSubmit(event);
+        console.log('photo received: ', event.target.files[0].name);
+        this.setState({
+            photo: event.target.files[0]
+        });    
+        //event.target.files[0] accesses first file that was uploaded
+    }
 
     render() {
         return (
