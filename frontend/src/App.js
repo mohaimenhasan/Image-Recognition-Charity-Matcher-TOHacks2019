@@ -35,9 +35,9 @@ class App extends Component {
               <a href="/" className="btn btn-info" role="button" id="nav-button">Home</a>
 
             </header>
-            <div className="map">
+            {/* <div className="map">
               {this.state.currentScreen}
-            </div>
+            </div> */}
           </div>
           <Switch>
             <Route exact path='/' component={Home} />
