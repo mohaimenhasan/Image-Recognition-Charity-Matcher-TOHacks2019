@@ -18,9 +18,14 @@ exports.add_user = async function (req, res) {
     await docRef.set({
         first: req.body.first,
         last: req.body.last,
+        email: req.body.email,
+        password: req.body.password,
         interests: req.body.interests
     }).then( () => {
         console.log("Database Updated");
-        res.send("User has been added");
+        res.send({
+            "code": 200,
+            "Message": "New user created successfully"
+        });
     });
 };
