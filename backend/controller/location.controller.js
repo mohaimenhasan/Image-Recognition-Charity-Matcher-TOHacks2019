@@ -1,8 +1,12 @@
 var firebase = require("firebase-admin");
 var serviceAccount = require("../credentials.json");
+const fs = require('fs');
+let rawdata = fs.readFileSync(__dirname+'/sample.json');
+let sample = JSON.parse(rawdata);
+//console.log(sample);
+
 // Imports the Google Cloud client libraries
 const vision = require('@google-cloud/vision');
-const fs = require('fs');
 // Creates a client
 const client = new vision.ImageAnnotatorClient();
 
@@ -18,7 +22,6 @@ const googleMapsClient = require('@google/maps').createClient({
 });
 
 const db = firebase.firestore();
-
 
 exports.test = function (req, res) {
     res.send("Hello Darkness my old friend");
@@ -62,18 +65,48 @@ exports.add_user = async function (req, res) {
     });
 };
 
-exports.get_charities = async function(req, res){
+exports.match_category = async function(req, res){
     try{
-        var latlon = [43.683308,-79.614296];
-        console.log(latlon);
+        var latlon = [req.body.latitude,req.body.longitude];
         let rad = parseInt(req.body.radius);
-        await googleMapsClient.placesNearby({
+        await get_charities(latlon, rad)
+            .then(data=>{
+                let places = [];
+                for (let i=0; i < sample.length; i++){
+                    for (let key in sample[i]){
+                        for (let element in sample[i][key]){
+                            console.log(req.body.obj_type);
+                            if (req.body.obj_type === sample[i][key][element]){
+                                for (let k=0; k < data.length; k++){
+                                    for (let m=0; m < data[i].type.length; m++){
+                                        if (data[i].type[m] === key){
+                                            if (!places.includes(data[i]))
+                                                {places.push(data[i]);}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                console.log(places);
+                res.send(places);
+            })
+
+    }catch (e) {
+
+    }
+};
+
+async function get_charities(latlon, rad){
+    try{
+        return await googleMapsClient.placesNearby({
             location: latlon,
             radius: rad,
             keyword: 'Donation'
         }).asPromise()
             .then(response=>{
-                console.log(response.json.results);
+                //console.log(response.json.results);
                 let resp=[];
                 for(let i=0; i < response.json.results.length; i++){
                     resp.push({
@@ -81,13 +114,28 @@ exports.get_charities = async function(req, res){
                         type: response.json.results[i].types,
                         rating: response.json.results[i].rating,
                         address: response.json.results[i].vicinity+', '+response.json.results[i].plus_code.compound_code,
-                        icon: response.json.results[i].icon
+                        icon: response.json.results[i].icon,
+                        location: response.json.results[i].geometry.location
                     });
                 }
-                res.send(resp);
+                return resp;
             }).catch((err) => {
                 throw(err);
             });
+    }catch (e) {
+        console.log(e);
+    }
+}
+
+exports.get_charities = async function(req, res){
+    try{
+        var latlon = [req.body.latitude,req.body.longitude];
+        console.log(latlon);
+        let rad = parseInt(req.body.radius);
+        await get_charities(latlon, rad)
+            .then(my_charties => {
+                res.send(my_charties);
+            })
     }catch (e) {
         console.log(e);
     }
