@@ -31,13 +31,17 @@ exports.return_image_tag = async function (req, res){
     };
     const [result] = await client.objectLocalization(request);
     const objects = result.localizedObjectAnnotations;
+    let objs_to_return = [];
     objects.forEach(object => {
-        console.log(`Name: ${object.name}`);
-        console.log(`Confidence: ${object.score}`);
+        objs_to_return.push({
+            name: object.name,
+            confidence: object.score
+        });
         const vertices = object.boundingPoly.normalizedVertices;
         vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
     });
-    res.send("Done");
+    console.log(objs_to_return);
+    res.send(objs_to_return);
 };
 
 
