@@ -7,11 +7,13 @@
     "dev": "nodemon"
   },
   "dependencies": {
+    "@google-cloud/vision": "^1.1.2",
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "firebase-admin": "^8.2.0",
+    "grpc": "^1.20.2",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "pug": "^2.0.4"
