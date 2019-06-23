@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import User from './components/user'
-import Charity from './components/charity'
-import Home from './components/home'
-import Maps from './maps'
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Homescreen from './homescreen';
 
 
 class App extends Component {
@@ -17,34 +12,29 @@ class App extends Component {
       currentScreen: []
     }
   }
+
   componentWillMount() {
-    let mapsPage = [];
-    mapsPage.push(<Maps appContext={this} />)
+    let homePage = [];
+    homePage.push(<Homescreen appContext={this} />)
     this.setState({
-      currentScreen: mapsPage
+        currentScreen: homePage
     })
   }
-
   render() {
     return (
       <div>
+        <AppBar position="static" style={{
+          alignItems: 'center',
+          position: 'center',
 
-        <Router>
-          <div className="App">
-            <header className="App-header">
-              <a href="/" className="btn btn-info" role="button" id="nav-button">Home</a>
-
-            </header>
-            {/* <div className="map">
-              {this.state.currentScreen}
-            </div> */}
-          </div>
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/user' component={User} />
-            <Route exact path='/charity' component={Charity} />
-          </Switch>
-        </Router>
+        }}>
+          <Toolbar>
+            <Typography variant="h6">
+              (D)Clutter and (D)onate
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        {this.state.currentScreen}
       </div>
     );
   }
