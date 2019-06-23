@@ -1,9 +1,14 @@
 var firebase = require("firebase-admin");
 var serviceAccount = require("../credentials.json");
+var maps = require('@google/maps');
 
 firebase.initializeApp({
     credential: firebase.credential.cert(serviceAccount),
     databaseURL: "https://tohacks2019-1561244898264.firebaseio.com"
+});
+const googleMapsClient = require('@google/maps').createClient({
+    key: process.env.GOOGLE_MAPS_API_KEY,
+    Promise: Promise
 });
 
 const db = firebase.firestore();
@@ -24,3 +29,34 @@ exports.add_user = async function (req, res) {
         res.send("User has been added");
     });
 };
+
+exports.get_charities = async function(req, res){
+    try{
+        var latlon = [43.683308,-79.614296];
+        console.log(latlon);
+        let rad = parseInt(req.body.radius);
+        await googleMapsClient.placesNearby({
+            location: latlon,
+            radius: rad,
+            keyword: 'Donation'
+        }).asPromise()
+            .then(response=>{
+                console.log(response.json.results);
+                let resp=[];
+                for(let i=0; i < response.json.results.length; i++){
+                    resp.push({
+                        name: response.json.results[i].name,
+                        type: response.json.results[i].types,
+                        rating: response.json.results[i].rating,
+                        address: response.json.results[i].vicinity+', '+response.json.results[i].plus_code.compound_code,
+                        icon: response.json.results[i].icon
+                    });
+                }
+                res.send(resp);
+            }).catch((err) => {
+                throw(err);
+            });
+    }catch (e) {
+        console.log(e);
+    }
+}
