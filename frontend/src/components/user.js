@@ -5,6 +5,8 @@ class User extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            photo: {},
+            file: ''
             photo: {}
         };
 
@@ -20,6 +22,38 @@ class User extends Component {
     }
 
     loadFile(event){
+
+        console.log('photo received-1: ', event.target.files[0].name);
+        this.setState({
+            photo: event.target.files[0]
+        });
+        let apiUrl ="http://localhost:8888/location/return_image_tag";
+            fetch(apiUrl,
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": '*'
+                    },
+                    body: JSON.stringify({
+                            image_name: event.target.files[0].name
+                        }
+                    )
+                }).then(my_resp => my_resp.json())
+                .then(response =>{
+                    console.log(response);
+                    if(response["code"] === 200){
+                        alert("User created successfully");
+                        window.location.href = ('http://localhost:3000/user')
+                    }
+                    else{
+                        console.log("Some error occurred: ",response.data.code);
+                    }
+                }).catch(function (error) {
+                console.log(error);
+            });
+        };
+
         // var image = document.getElementById('output');
         // image.src = URL.createObjectURL(event.target.files[0]);
         //handleSubmit(event);
