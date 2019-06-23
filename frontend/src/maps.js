@@ -24,5 +24,5 @@ const mapStyles = {
   };
   
 export default GoogleApiWrapper({
-    apiKey: 'AIzaSyClGuqvS5S9nLZiy6oxMgEa8n1UfYCtOBw'
+    apiKey: process.env.REACT_APP_API_KEY
   })(Maps);
