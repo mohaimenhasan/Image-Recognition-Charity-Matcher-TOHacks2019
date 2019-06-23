@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
+var cors = require('cors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-
 
 var indexRouter = require('./routes/index');
 var locationRouter = require('./routes/location.route');
@@ -25,6 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors());
 app.use('/', indexRouter);
 app.use('/location', locationRouter);
 

@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
 import '../App.css';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import { red } from '@material-ui/core/colors';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+import Donors from '../donors.png';
+import Charity from '../charity.png';
 
 class Home extends Component {
     constructor(props) {
@@ -10,12 +19,75 @@ class Home extends Component {
 
     render() {
         return (
-            <div style={{ "width": "100%" , "alignContent":"center", "height":"500px"}}>
-                <a href="/user" class="btn btn-info" role="button" id="button">
-                <img src='heart-box.png' alt='' className='icon'/>
-                <div><p className='label'>I'm a Donor</p></div></a>
-                <a href="/charity" class="btn btn-info" role="button" id="button"><img src='heart.png' alt='' className='icon'/>
-                <p className='label'>I'm a Charity</p></a>
+            <div style={{
+                marginTop: "10%"
+            }}>
+                <Card style={{
+                    width: "30%",
+                    display: "inline-block",
+                    height: '35vw',
+                    marginLeft: "17%",
+                    textAlign: "center",
+                    backgroundColor: "#FA9A85"
+                }}>
+                    <CardHeader
+                        avatar={
+                            <Avatar style={{
+                                backgroundColor: red[500]
+                            }}>
+                                U
+                            </Avatar>
+                        }
+                        title="Users looking to donate today"
+                    />
+                    <CardContent>
+                        <Typography variant="h4" component="h2">
+                            Donors
+                        </Typography>
+                    </CardContent>
+                    <img style={{ marginTop: '5%', height: 140 }} src={Donors} /> <br />
+                    <Button variant="contained" color="primary" a href="/signup" style={{
+                        marginTop: "5%"
+                    }}>
+                        Sign Up today
+                    </Button> <br />
+                    <Button variant="contained" color="primary" style={{
+                        marginTop: "5%"
+                    }} a href="/user">
+                        Log in
+                    </Button>
+                </Card>
+                <Card style={{
+                    textAlign: "center",
+                    width: "30%",
+                    display: "inline-block",
+                    height: '35vw',
+                    marginLeft: "2%",
+                    backgroundColor: "#FA9A85"
+                }}>
+                    <CardHeader
+                        avatar={
+                            <Avatar style={{
+                                backgroundColor: red[500]
+                            }}>
+                                C
+                            </Avatar>
+                        }
+                        title="Charities looking to find users"
+                    />
+                    <CardContent>
+                        <Typography variant="h4" component="h2">
+                            Charity
+                        </Typography>
+                    </CardContent>
+                    <img style={{ marginTop: '5%', height: 140 }} src={Charity} /> <br />
+                    <Button variant="contained" color="primary" a href="/charity" style={{
+                        marginTop: "5%"
+                    }}>
+                        Log in
+                    </Button>
+                </Card>
+
             </div>
         );
     }
