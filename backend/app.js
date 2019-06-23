@@ -5,41 +5,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 
+
 var indexRouter = require('./routes/index');
 var locationRouter = require('./routes/location.route');
 
-var firebase = require("firebase-admin");
-
-var serviceAccount = require("./credentials.json");
-
-firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
-    databaseURL: "https://tohacks2019-1561244898264.firebaseio.com"
-});
-
-
 var app = express();
-
-var db = firebase.database();
-var ref = db.ref("locationdata");
-
-/*
-ref.once("value", function (snapshot) {
-    console.log(snapshot.val());
-});
-
-var usersRef = ref.child("users");
-usersRef.set({
-    alanisawesome: {
-        date_of_birth: "June 23, 1912",
-        full_name: "Alan Turing"
-    },
-    gracehop: {
-        date_of_birth: "December 9, 1906",
-        full_name: "Grace Hopper"
-    }
-});
-*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

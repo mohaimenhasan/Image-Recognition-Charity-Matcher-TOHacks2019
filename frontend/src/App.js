@@ -8,22 +8,43 @@ import User from './components/user'
 import Charity from './components/charity'
 import Home from './components/home'
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <header className="App-header">
-          <a href="/" class="btn btn-info" role="button" id="nav-button">Home</a>
-        </header>
-        
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentScreen: []
+    }
+  }
+  componentWillMount() {
+    let mapsPage = [];
+    mapsPage.push(<Maps appContext={this} />)
+    this.setState({
+      currentScreen: mapsPage
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="App">
+          {this.state.currentScreen}
+        </div>
+        <Router>
+          <div className="App">
+            <header className="App-header">
+              <a href="/" class="btn btn-info" role="button" id="nav-button">Home</a>
+            </header>
+
+          </div>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/user' component={User} />
+            <Route exact path='/charity' component={Charity} />
+          </Switch>
+        </Router>
       </div>
-      <Switch>
-        <Route exact path ='/' component= {Home}/>
-        <Route exact path='/user' component={User} />
-        <Route exact path='/charity' component={Charity} />
-      </Switch>
-    </Router>
-  );
+    );
+  }
 }
 
 export default App;

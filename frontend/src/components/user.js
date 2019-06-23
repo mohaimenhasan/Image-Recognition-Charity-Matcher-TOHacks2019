@@ -10,7 +10,7 @@ class User extends Component {
     }
 
     handleSubmit() {
-
+        
     }
 
     render() {
@@ -19,7 +19,7 @@ class User extends Component {
                 <h2> Welcome to Add Item </h2>
                 <form onSubmit={this.handleSubmit}>
                     Upload A Photo:
-                    <input id="uploadImage" type="file" name="photo" />
+                    <input id="uploadImage" type="file" name="photo"/>
                     <input type='submit' value='Upload Photos' className='btn btn-primary' />
                 </form>
             </div>
