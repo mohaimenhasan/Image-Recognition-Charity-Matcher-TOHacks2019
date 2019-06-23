@@ -1,0 +1,15 @@
+[
+    {
+        "clothing_store": [
+            "glasses", "shirts","pants","socks","shoes","coat","jacket"
+        ],
+        "book_store": [
+            "book","magazine","cd","records","audiobook","cassette"
+        ],
+        "store": [
+            "book","clothing","furniture","accessories","shoes","toys","chair","bed","table","bench","mattress","stool","sofa","couch"
+        ],
+        "health":[
+            "blood","gauze","bandaid","toys"
+        ]
+}] 

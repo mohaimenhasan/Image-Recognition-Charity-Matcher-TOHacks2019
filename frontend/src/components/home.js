@@ -20,7 +20,7 @@ class Home extends Component {
     render() {
         return (
             <div style={{
-                marginTop: "10%"
+                marginTop: "7%"
             }}>
                 <Card style={{
                     width: "30%",
@@ -54,7 +54,7 @@ class Home extends Component {
                     <Button variant="contained" color="primary" style={{
                         marginTop: "5%"
                     }} a href="/user">
-                        Log in
+                        donate
                     </Button>
                 </Card>
                 <Card style={{
