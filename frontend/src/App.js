@@ -29,9 +29,9 @@ class App extends Component {
 
         }}>
           <Toolbar>
-            <Typography variant="h6">
+            <a href='/' style={{"color": "white"}}><Typography variant="h6">
               (D)Clutter and (D)onate
-            </Typography>
+            </Typography></a>
           </Toolbar>
         </AppBar>
         {this.state.currentScreen}

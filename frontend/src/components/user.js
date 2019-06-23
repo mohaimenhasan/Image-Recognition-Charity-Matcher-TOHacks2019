@@ -62,7 +62,6 @@ class User extends Component {
                     Upload A Photo:
                     <input type="file" accept="image/*" name="image" id="file" onChange={this.loadFile} style={{ "display": "none" }}></input>
                     <br /><label className='btn btn-primary' for="file" style={{ "cursor": "pointer" }}>Choose File</label>
-                    {/* <p><img id="output" width="200" alt='upload' /></p> */}
                 </form>
             </div>
         );

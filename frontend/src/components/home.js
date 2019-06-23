@@ -45,11 +45,11 @@ class Home extends Component {
                             Donors
                         </Typography>
                     </CardContent>
-                    <img style={{ marginTop: '5%', height: 140 }} src={Donors} /> <br />
+                    <img style={{ marginTop: '5%', height: 140 }} src={Donors} alt='' /> <br />
                     <Button variant="contained" color="primary" a href="/signup" style={{
                         marginTop: "5%"
                     }}>
-                        Sign Up today
+                        Sign Up Today
                     </Button> <br />
                     <Button variant="contained" color="primary" style={{
                         marginTop: "5%"
@@ -80,7 +80,7 @@ class Home extends Component {
                             Charity
                         </Typography>
                     </CardContent>
-                    <img style={{ marginTop: '5%', height: 140 }} src={Charity} /> <br />
+                    <img style={{ marginTop: '5%', height: 140 }} src={Charity} alt='' /> <br />
                     <Button variant="contained" color="primary" a href="/charity" style={{
                         marginTop: "5%"
                     }}>
