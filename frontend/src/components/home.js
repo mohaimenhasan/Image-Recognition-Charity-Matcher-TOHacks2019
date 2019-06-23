@@ -11,8 +11,11 @@ class Home extends Component {
     render() {
         return (
             <div style={{ "width": "100%" , "alignContent":"center", "height":"500px"}}>
-                <a href="/user" class="btn btn-info" role="button" id="button">I'm a Donor</a>
-                <a href="/charity" class="btn btn-info" role="button" id="button">I'm a Charity</a>
+                <a href="/user" class="btn btn-info" role="button" id="button">
+                <img src='heart-box.png' alt='' className='icon'/>
+                <div><p className='label'>I'm a Donor</p></div></a>
+                <a href="/charity" class="btn btn-info" role="button" id="button"><img src='heart.png' alt='' className='icon'/>
+                <p className='label'>I'm a Charity</p></a>
             </div>
         );
     }

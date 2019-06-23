@@ -59,3 +59,12 @@
   left: 0;
   right: 0;
 }
+
+.icon{
+  width:20%;
+}
+
+.label{
+  top:-50px;
+  font-size: 100%
+}
