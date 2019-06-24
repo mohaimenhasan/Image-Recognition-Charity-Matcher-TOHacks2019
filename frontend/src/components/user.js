@@ -64,10 +64,40 @@ class User extends Component {
         });
     }
 
-    async getNearbyCharity(){
+    async getallCharities(){
         let apiUrl = 'http://localhost:8888/location/match_category';
-        console.log("here -2")
-        fetch(apiUrl,
+        //console.log("here -2")
+        let all_data = [];
+        for (let i=0; i < this.state.objects.length; i++){
+            await fetch(apiUrl,
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": '*'
+                    },
+                    body: JSON.stringify({
+                            latitude: this.state.curr_lat,
+                            longitude: this.state.curr_lon,
+                            radius: this.state.radius,
+                            obj_type: this.state.objects[i]
+                        }
+                    )
+                }).then(mydata=>mydata.json())
+                .then(allchar => {
+                    for (let j=0; j < allchar.length; j++){
+                        if (!all_data.includes(allchar[j])){
+                            all_data.push(allchar[j]);
+                        }
+                    }
+                })
+        }
+        return all_data;
+    }
+
+    async getEveryCharity(){
+        let apiUrl = 'http://localhost:8888/location/get_charities';
+        return await fetch(apiUrl,
             {
                 method: 'POST',
                 headers: {
@@ -77,11 +107,17 @@ class User extends Component {
                 body: JSON.stringify({
                         latitude: this.state.curr_lat,
                         longitude: this.state.curr_lon,
-                        radius: this.state.radius,
-                        obj_type: this.state.objects[0]
+                        radius: this.state.radius
                     }
                 )
-            }).then(my_resp => my_resp.json())
+            }).then(mydata=>mydata.json())
+            .then(allchar => {
+                return allchar;
+            })
+    }
+
+    async markEveryCharity(){
+        await this.getEveryCharity()
             .then(data => {
                 console.log(data);
                 let place=[];
@@ -144,6 +180,81 @@ class User extends Component {
                 })
             })
     }
+
+    async getNearbyCharity(){
+        await this.getallCharities()
+            .then(data => {
+                console.log(data);
+                let place=[];
+                let markers = [];
+                let place_data=[];
+                for(let i=0; i < data.length; i++){
+                    markers.push(
+                        <Marker
+                            title={data[i].name}
+                            name={data[i].name}
+                            position={{lat: data[i].location.lat, lng: data[i].location.lng}}
+                        />
+                    );
+                    let list_items=[];
+                    for (let j=0; j < data[i].type.length; j++){
+                        list_items.push(
+                            <ListItem>
+                                <Typography>
+                                    {data[i].type[j]}
+                                </Typography>
+                            </ListItem>
+                        )
+                    }
+                    place_data.push(
+                        <div style={{ display: 'inline-block', borderStyle: 'solid',
+                            borderWidth: 2, margin: '2%'}}>
+                            <Card style={{
+                                width: "100%",
+                                textAlign: "center",
+                                backgroundColor: "#a8ff78"
+                            }}>
+                                <CardContent>
+                                    <Typography>
+                                        <b> Name: </b> {data[i].name}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                            <Card style={{
+                                width: "100%",
+                                textAlign: "center",
+                                backgroundColor: "#78ffd6"
+                            }}>
+                                <CardContent>
+                                    <Typography variant="h6" component="h2">
+                                        Donation Itineraries
+                                    </Typography>
+                                    <list>
+                                        {list_items}
+                                    </list>
+                                </CardContent>
+                            </Card>
+                        </div>
+                    );
+                    place.push(data[i]);
+                }
+                this.setState({
+                    place_data: place_data,
+                    markers: markers,
+                    nearby_coordinate: place
+                })
+            })
+    }
+
+    async handleAllCharities(event){
+                await this.markEveryCharity()
+                    .then(() => {
+                        this.setState({
+                            display_charity: '',
+                            display_donate: 'None'
+                        })
+                    })
+    }
     async handleCharities(event){
           await this.getNearbyCharity()
               .then( () => {
@@ -176,7 +287,7 @@ class User extends Component {
                     console.log(response);
                     let img = [];
                     let objs = [];
-                    for(let i=0; i < response.length && i < 3; i++){
+                    for(let i=0; i < response.length; i++){
                         objs.push(response[i].name);
                         img.push(
                             <ListItem>
@@ -257,12 +368,21 @@ class User extends Component {
                             </List>
                         </CardContent>
                     </Card>
+
                     <Button variant="contained" color="primary" onClick={(event) => this.handleCharities(event)} style={{
                         display: this.state.display_image_tag,
                         marginTop: "1%",
                         marginLeft: "46%"
                     }}>
-                        Find Charities
+                        Find Charities Relevant To Me
+                    </Button>
+
+                    <Button variant="contained" color="primary" onClick={(event) => this.handleAllCharities(event)} style={{
+                        display: this.state.display_image_tag,
+                        marginTop: "1%",
+                        marginLeft: "46%"
+                    }}>
+                        Find All Charities
                     </Button>
                 </div>
                 <div style={{

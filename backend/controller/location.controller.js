@@ -77,6 +77,7 @@ exports.match_category = async function(req, res){
                         for (let element in sample[i][key]){
                             console.log(req.body.obj_type);
                             if (req.body.obj_type === sample[i][key][element]){
+                                console.log("it matched here");
                                 for (let k=0; k < data.length; k++){
                                     for (let m=0; m < data[i].type.length; m++){
                                         if (data[i].type[m] === key){

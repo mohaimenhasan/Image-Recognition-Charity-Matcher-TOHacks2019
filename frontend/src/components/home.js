@@ -55,7 +55,7 @@ class Home extends Component {
                     <Button variant="contained" color="primary" style={{
                         marginTop: "5%"
                     }} a href="/user">
-                        Log in
+                        Donate
                     </Button>
                 </Card>
                 <Card style={{

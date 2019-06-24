@@ -1,7 +1,7 @@
 [
     {
         "clothing_store": [
-            "Glasses", "Shirts","Pants","Socks","Shoes","Coat","Jacket","Clothes","Bottles"
+            "Glasses", "Shirts","Pants","Socks","Shoes","Coat","Jacket","Clothes","Bottles","Shoe","Top","Bed","Chair"
         ],
         "book_store": [
             "Book","Magazine","CD","Records","Audiobook","Cassette","Bottles","Cans","Paper","Pens","Stationaries","Bicycle"
@@ -10,10 +10,10 @@
             "Book","Clothing","Furniture","Accessories","Shoes","Toys","Chair","Bed","Table","Bench","Mattress","Stool","Sofa","Couch","Cycle","Bike","Bicycle","Shoe","Top"
         ],
         "health":[
-            "Blood","Gauze","Bandaid","Toys"
+            "Blood","Gauze","Bandaid","Toys","Bed","Chair"
         ],
         "point_of_interest": [
-            "Bottles","Bicycle"
+            "Bottles","Bicycle","Shoe","Top","Bed","Chair"
         ]
     }
 ]

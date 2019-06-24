@@ -3,6 +3,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Homescreen from './homescreen';
+import Button from "./components/home";
 
 
 class App extends Component {
@@ -29,9 +30,9 @@ class App extends Component {
 
         }}>
           <Toolbar>
-            <Typography variant="h6">
+            <a href='/' style={{"color": "white"}}><Typography variant="h6">
               (D)Clutter and (D)onate
-            </Typography>
+            </Typography></a>
           </Toolbar>
         </AppBar>
         {this.state.currentScreen}
