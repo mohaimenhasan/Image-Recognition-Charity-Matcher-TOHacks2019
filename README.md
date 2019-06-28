@@ -10,6 +10,7 @@
 <li> Google Maps API </li>
 <li> Google Vision API </li>
 
+<br/>
 <b> STACK: </b> FERN 
 
 <b> Prerequisites: </b>
